@@ -21,7 +21,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install customtkinter jdatetime pyinstaller
     - name: Build EXE
-      run: pyinstaller --onefile --windowed --name "AmlakArash" --clean amlak_single.py
+      run: pyinstaller --onefile --windowed --name "AmlakArash" --clean run.py
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
