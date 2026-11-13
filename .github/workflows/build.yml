@@ -19,9 +19,9 @@ jobs:
     - name: Install deps
       run: |
         python -m pip install --upgrade pip
-        pip install customtkinter jdatetime pyinstaller
+        pip install customtkinter pyinstaller
     - name: Build EXE
-      run: pyinstaller --onefile --windowed --name "AmlakArash" --clean run.py
+      run: pyinstaller --onefile --windowed --name "AmlakArash" --clean app.py
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -31,18 +31,18 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v2.0.0
-        name: "املاک آرش v2.0.0"
+        tag_name: v2.0.1
+        name: "املاک آرش v2.0.1"
         body: |
-          نسخه ۲.۰ با اولویت ۱ و ۲
+          نسخه پایدار املاک آرش
           
-          - داشبورد + جستجوی سریع
-          - بانک فایل (فایل همکار + زمان بازدید)
-          - مشتریان + تطبیق فایل
-          - قرارداد + حق‌الزحمه خودکار
-          - دفترچه تلفن، یادداشت، اعلان
+          - ثبت و مدیریت فایل ملکی
+          - فایل همکار
+          - زمان بازدید
+          - جستجو و فیلتر
+          - خروجی Excel
           
-          فقط فایل AmlakArash.exe را دانلود و اجرا کنید.
+          فقط AmlakArash.exe را دانلود و اجرا کنید.
         files: dist/AmlakArash.exe
         draft: false
       env:
