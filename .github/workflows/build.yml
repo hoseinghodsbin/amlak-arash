@@ -1,0 +1,49 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install deps
+      run: |
+        python -m pip install --upgrade pip
+        pip install customtkinter jdatetime pyinstaller
+    - name: Build EXE
+      run: pyinstaller --onefile --windowed --name "AmlakArash" --clean amlak_single.py
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AmlakArash-Windows
+        path: dist/AmlakArash.exe
+        retention-days: 30
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v2.0.0
+        name: "املاک آرش v2.0.0"
+        body: |
+          نسخه ۲.۰ با اولویت ۱ و ۲
+          
+          - داشبورد + جستجوی سریع
+          - بانک فایل (فایل همکار + زمان بازدید)
+          - مشتریان + تطبیق فایل
+          - قرارداد + حق‌الزحمه خودکار
+          - دفترچه تلفن، یادداشت، اعلان
+          
+          فقط فایل AmlakArash.exe را دانلود و اجرا کنید.
+        files: dist/AmlakArash.exe
+        draft: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
